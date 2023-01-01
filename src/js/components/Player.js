@@ -1,4 +1,4 @@
-import Sprite from "./Sprite.js";
+import Sprite from "./Sprite";
 
 export default class Player {
     constructor(context, gravity, winCallback, url) {
@@ -50,14 +50,14 @@ export default class Player {
         this.position.y += this.velocity.y;
         this.position.x += this.velocity.x;
 
-        if (this.position.y + this.height + this.velocity.y <=
+        if (this.position.y + this.height + this.velocity.y <= 
             this.context.canvas.height) {
                 this.velocity.y += this.gravity;
             }
         else {
             this.velocity.y = 0;
-        }
-
+        }    
+        
     }
 
     animate() {
@@ -99,14 +99,14 @@ export default class Player {
 
         if (this.awaited === this.activated) {
             this.winCallback();
-        }
+        } 
     }
 
     setLevelConditions(awaited){
         this.activated = 0;
         this.awaited = awaited;
     }
-
+    
     getSprite(){
         return this.sprite.get();
     }

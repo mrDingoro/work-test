@@ -1,11 +1,12 @@
-import Platform from "./Platform.js";
-import { PlatformMap, conditionMap } from "../utils/levels/index.js";
+import Platform from "./Platform";
+import { PlatformMap } from "../utils/levels";
+import { conditionMap } from "../utils/levels";
 
 import playerImg from "../../img/playerr.png";
 import startImage from "../../img/startImage1.jpg";
 
 const introductionImages = [
-    { imageUrl: "../../img/startImage1.jpg", input: false },
+    { imageUrl: "../../img/startImage1.jpg", input: false }, 
     { imageUrl: "../../img/startImage1.jpg", input: false },
     { imageUrl: "../../img/startImage1.jpg", input: false },
     { imageUrl: "../../img/startImage1.jpg", input: false },
@@ -55,11 +56,11 @@ export default class Game {
         //this.stats.name = prompt('Как вас зовут?')
         //alert(this.stats.name)
 
-        //вывести правила
+        //вывести правила 
         //...
 
         this.player = new this.player(
-            this.context,
+            this.context, 
             this.stats.gravity,
             this.winLevel.bind(this),
             playerImg
@@ -87,7 +88,7 @@ export default class Game {
         const platforms = PlatformMap[this.stats.lvl].map(element => {
             return new Platform(this.context, element)
         });
-
+        
         this.controller.animate([this.player, ...platforms, ...this.sprites], this.stats.lvl);
     }
 
