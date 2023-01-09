@@ -1,16 +1,10 @@
 import Platform from "./Platform";
-import { PlatformMap } from "../utils/levels";
-import { conditionMap } from "../utils/levels";
+import { PlatformMap, conditionMap } from "../utils/levels";
+import { cll } from "../utils/collision";
 
 import playerImg from "../../img/playerr.png";
 import startImage from "../../img/startImage1.jpg";
 
-const introductionImages = [
-    { imageUrl: "../../img/startImage1.jpg", input: false }, 
-    { imageUrl: "../../img/startImage1.jpg", input: false },
-    { imageUrl: "../../img/startImage1.jpg", input: false },
-    { imageUrl: "../../img/startImage1.jpg", input: false },
-];
 
 export default class Game {
     constructor ( player, controller, listenerUp, listenerDown ) {
@@ -26,27 +20,26 @@ export default class Game {
             gravity: 0.5,
             lvl: 0,
         }
-
         this.startIntroduction();
     }
 
     startIntroduction() {
+        this.setup();
+        //const image = document.createElement('img');
+        //image.src  = startImage;
+        //image.setAttribute('width', '1280px');
+        //image.setAttribute('height', '720px');
+        //image.setAttribute('position', 'absolute');
+        //image.setAttribute('top', '20%');
+        //image.setAttribute('left', '20%');
 
-        const image = document.createElement('img');
-        image.src  = startImage;
-        image.setAttribute('width', '1280px');
-        image.setAttribute('height', '720px');
-        image.setAttribute('position', 'absolute');
-        image.setAttribute('top', '20%');
-        image.setAttribute('left', '20%');
-
-        document.getElementById('body').setAttribute('margin', '0 auto');
-        document.getElementById('body').appendChild(image);
-        const listenerID = this.listenDown(this);
+       //document.getElementById('body').setAttribute('margin', '0 auto');
+       //document.getElementById('body').appendChild(image);
+       //const listenerID = this.listenDown(this);
     }
 
     setup() {
-        const canvas = document.querySelector('canvas');
+        const canvas = document.querySelector('#canvas');
         this.context = canvas.getContext('2d');
 
         canvas.width = window.innerWidth;
@@ -56,11 +49,11 @@ export default class Game {
         //this.stats.name = prompt('Как вас зовут?')
         //alert(this.stats.name)
 
-        //вывести правила 
+        //вывести правила
         //...
 
         this.player = new this.player(
-            this.context, 
+            this.context,
             this.stats.gravity,
             this.winLevel.bind(this),
             playerImg
@@ -73,7 +66,7 @@ export default class Game {
 
         this.listenDown(this.player);
         this.listenUp(this.player);
-
+        console.log(sprites);
         this.start();
     }
 
@@ -88,7 +81,7 @@ export default class Game {
         const platforms = PlatformMap[this.stats.lvl].map(element => {
             return new Platform(this.context, element)
         });
-        
+
         this.controller.animate([this.player, ...platforms, ...this.sprites], this.stats.lvl);
     }
 
